@@ -1,3 +1,5 @@
+require("keymaps")
 require("options")
 require("plugins.colorscheme")
 require("plugins.lsp")
+require("plugins.treesitter")

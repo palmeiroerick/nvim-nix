@@ -22,7 +22,7 @@
         };
       in {
         packages = {
-          neovim = pkgs.neovim;
+          default = pkgs.neovim;
         };
       }
     );

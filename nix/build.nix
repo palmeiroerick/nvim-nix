@@ -16,26 +16,24 @@ with lib;
       plugins = normalizedPlugins;
     };
 
-    nvimRtp = stdenv.mkDerivation {
+    nvim = stdenv.mkDerivation {
       name = "neovim";
       src = ../config;
 
       buildPhase = ''
-        mkdir -p $out/config
         mkdir -p $out/lua
-        rm init.lua
       '';
 
       installPhase = ''
-        cp -r lua $out/lua
-        rm -r lua
+        cp init.lua $out/init.lua
+        cp -r lua/* $out/lua/
       '';
     };
 
     initLua = ''
       vim.loader.enable()
-      vim.opt.rtp:prepend('${nvimRtp}/lua')
-      ${builtins.readFile ../config/init.lua}
+      vim.opt.rtp:prepend('${nvim}')
+      dofile('${nvim}/init.lua')
     '';
 
     extraMakeWrapperArgs = builtins.concatStringsSep " " (
